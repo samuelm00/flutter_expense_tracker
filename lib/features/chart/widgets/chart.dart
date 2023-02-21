@@ -14,19 +14,25 @@ class Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 6,
-      margin: const EdgeInsets.all(20),
-      child: Row(
-        children: chartController.groupedTransactions.map(
-          (data) {
-            return ChartBar(
-              label: data.day,
-              spendingAmount: data.value,
-              spendingPctOfTotal: chartController.totalSpending == 0.0
-                  ? 0.0
-                  : data.value / chartController.totalSpending,
-            );
-          },
-        ).toList(),
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: chartController.groupedTransactions.map(
+            (data) {
+              return Flexible(
+                fit: FlexFit.tight,
+                child: ChartBar(
+                  label: data.day,
+                  spendingAmount: data.value,
+                  spendingPctOfTotal: chartController.totalSpending == 0.0
+                      ? 0.0
+                      : data.value / chartController.totalSpending,
+                ),
+              );
+            },
+          ).toList(),
+        ),
       ),
     );
   }
