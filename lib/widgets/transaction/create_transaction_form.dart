@@ -10,6 +10,34 @@ class CreateTransactionForm extends StatelessWidget {
   final titleController = TextEditingController();
   final amountController = TextEditingController();
 
+  bool _isInputValid() {
+    final title = titleController.text;
+
+    if (amountController.text.isEmpty) {
+      return false;
+    }
+
+    final amount = double.parse(amountController.text);
+
+    if (title.isEmpty || amount <= 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  void _onSubmit() {
+    if (_isInputValid()) {
+      final title = titleController.text;
+      final amount = double.parse(amountController.text);
+
+      onSubmit(title, amount);
+
+      titleController.clear();
+      amountController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -26,17 +54,13 @@ class CreateTransactionForm extends StatelessWidget {
             ),
             TextField(
               controller: amountController,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Amount",
               ),
             ),
             ElevatedButton(
-              onPressed: () {
-                onSubmit(
-                  titleController.text,
-                  double.parse(amountController.text),
-                );
-              },
+              onPressed: _onSubmit,
               child: const Text("Add Transaction"),
             )
           ],

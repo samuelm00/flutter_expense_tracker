@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class TransactionPrice extends StatelessWidget {
   const TransactionPrice({super.key, required this.amount});
 
-  final double amount;
+  final String amount;
 
   @override
   Widget build(BuildContext context) {

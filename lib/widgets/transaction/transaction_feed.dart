@@ -48,7 +48,7 @@ class _TransactionFeedState extends State<TransactionFeed> {
         ),
         TransactionList(
           transactions: _transactions,
-        ),
+        )
       ],
     );
   }

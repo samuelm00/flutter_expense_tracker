@@ -17,7 +17,7 @@ class TransactionCard extends StatelessWidget {
       child: Row(
         children: [
           TransactionPrice(
-            amount: transaction.getAmount,
+            amount: transaction.getAmount.toStringAsFixed(2),
           ),
           TransactionDescription(
             title: transaction.getTitle,
