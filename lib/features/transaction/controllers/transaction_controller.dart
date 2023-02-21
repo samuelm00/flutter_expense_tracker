@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_tracker/features/bottom_sheet/bottom_sheet_controller.dart';
 import 'package:flutter_expense_tracker/features/transaction/widgets/create_transaction_form.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
 
 class TransactionController {
   final void Function(Function()) setState;
+  final BottomSheetController bottomSheetController = BottomSheetController();
 
   final _transactions = <Transaction>[
     Transaction(
@@ -38,13 +40,11 @@ class TransactionController {
   }
 
   void stratNewTransaction(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return CreateTransactionForm(
-          onSubmit: addNewTransaction,
-        );
-      },
+    bottomSheetController.showBaseBottomSheet(
+      context,
+      CreateTransactionForm(
+        onSubmit: addNewTransaction,
+      ),
     );
   }
 }
