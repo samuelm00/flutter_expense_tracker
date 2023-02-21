@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/features/transaction/controllers/transaction_controller.dart';
 
-import '../../features/transaction/transaction_list.dart';
-import '../../features/transaction/create_transaction_form.dart';
+import '../../features/transaction/widgets/create_transaction_form.dart';
+import '../../features/transaction/widgets/transaction_list.dart';
 
 class AppFragment extends StatefulWidget {
   const AppFragment({
@@ -14,44 +14,9 @@ class AppFragment extends StatefulWidget {
 }
 
 class _AppFragmentState extends State<AppFragment> {
-  final List<Transaction> _transactions = [
-    Transaction(
-      id: "t1",
-      title: "New Shoes",
-      amount: 69.99,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: "t2",
-      title: "Weekly Groceries",
-      amount: 16.53,
-      date: DateTime.now(),
-    ),
-  ];
-
-  void _addNewTransaction(String title, double amount) {
-    final newTx = Transaction(
-      title: title,
-      amount: amount,
-      date: DateTime.now(),
-      id: DateTime.now().toString(),
-    );
-
-    setState(() {
-      _transactions.add(newTx);
-    });
-  }
-
-  void _stratNewTransaction(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (_) {
-        return CreateTransactionForm(
-          onSubmit: _addNewTransaction,
-        );
-      },
-    );
-  }
+  late final transactionController = TransactionController(
+    setState: setState,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -70,16 +35,16 @@ class _AppFragmentState extends State<AppFragment> {
             ),
           ),
           CreateTransactionForm(
-            onSubmit: _addNewTransaction,
+            onSubmit: transactionController.addNewTransaction,
           ),
           TransactionList(
-            transactions: _transactions,
+            transactions: transactionController.transactions,
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _stratNewTransaction(context),
+        onPressed: () => transactionController.stratNewTransaction(context),
       ),
     );
   }
