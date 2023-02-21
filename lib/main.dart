@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
-import 'package:flutter_expense_tracker/widgets/transaction/transaction_price.dart';
-
-import 'widgets/transaction/transaction_description.dart';
+import 'package:flutter_expense_tracker/widgets/transaction/transaction_card.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,18 +60,8 @@ class MyHomePage extends StatelessWidget {
             Column(
               children: transactions.map(
                 (transaction) {
-                  return Card(
-                    child: Row(
-                      children: [
-                        TransactionPrice(
-                          amount: transaction.getAmount,
-                        ),
-                        TransactionDescription(
-                          title: transaction.getTitle,
-                          date: transaction.getDate,
-                        ),
-                      ],
-                    ),
+                  return TransactionCard(
+                    transaction: transaction,
                   );
                 },
               ).toList(),
