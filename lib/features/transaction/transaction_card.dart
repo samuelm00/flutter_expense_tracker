@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
-import 'package:flutter_expense_tracker/widgets/transaction/transaction_description.dart';
-import 'package:flutter_expense_tracker/widgets/transaction/transaction_price.dart';
+import 'package:flutter_expense_tracker/features/transaction/transaction_description.dart';
+import 'package:flutter_expense_tracker/features/transaction/transaction_price.dart';
 
 class TransactionCard extends StatelessWidget {
   const TransactionCard({
