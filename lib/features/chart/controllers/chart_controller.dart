@@ -25,7 +25,7 @@ class ChartController {
               .fold(0.0, (sum, element) => sum + element.amount),
         );
       },
-    );
+    ).reversed.toList();
   }
 
   double get totalSpending {

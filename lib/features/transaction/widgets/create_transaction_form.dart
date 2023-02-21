@@ -1,42 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_tracker/features/transaction/controllers/create_transaction_form_controller.dart';
 
 class CreateTransactionForm extends StatelessWidget {
   CreateTransactionForm({
     super.key,
-    required this.onSubmit,
-  });
+    required onSubmit,
+  }) : controller = CreateTransactionFormController(onSubmit: onSubmit);
 
-  final Function(String, double) onSubmit;
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
-
-  bool _isInputValid() {
-    final title = titleController.text;
-
-    if (amountController.text.isEmpty) {
-      return false;
-    }
-
-    final amount = double.parse(amountController.text);
-
-    if (title.isEmpty || amount <= 0) {
-      return false;
-    }
-
-    return true;
-  }
-
-  void _onSubmit() {
-    if (_isInputValid()) {
-      final title = titleController.text;
-      final amount = double.parse(amountController.text);
-
-      onSubmit(title, amount);
-
-      titleController.clear();
-      amountController.clear();
-    }
-  }
+  final CreateTransactionFormController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +18,20 @@ class CreateTransactionForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextField(
-              controller: titleController,
+              controller: controller.titleController,
               decoration: const InputDecoration(
                 labelText: "Title",
               ),
             ),
             TextField(
-              controller: amountController,
+              controller: controller.amountController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Amount",
               ),
             ),
             ElevatedButton(
-              onPressed: _onSubmit,
+              onPressed: controller.handleSubmit,
               child: const Text("Add Transaction"),
             )
           ],
