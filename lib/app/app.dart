@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Expense Tracker',
       theme: ThemeData(
         primarySwatch: Colors.purple,
+        fontFamily: "Quicksand",
       ),
       home: const MyHomePage(),
     );

@@ -29,7 +29,6 @@ class _AppFragmentState extends State<AppFragment> {
         children: <Widget>[
           Card(
             child: Container(
-              color: Colors.blue,
               width: double.infinity,
               child: const Text("Chart!"),
             ),
