@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_tracker/features/chart/widgets/chart.dart';
 import 'package:flutter_expense_tracker/features/transaction/controllers/transaction_controller.dart';
 
 import '../../features/transaction/widgets/create_transaction_form.dart';
@@ -27,11 +28,8 @@ class _AppFragmentState extends State<AppFragment> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Card(
-            child: Container(
-              width: double.infinity,
-              child: const Text("Chart!"),
-            ),
+          Chart(
+            recentTransactions: transactionController.transactions,
           ),
           CreateTransactionForm(
             onSubmit: transactionController.addNewTransaction,
