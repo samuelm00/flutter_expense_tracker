@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
 
-import 'transaction_card.dart';
+import 'transaction_item.dart';
 
 class TransactionList extends StatelessWidget {
   const TransactionList({
@@ -16,7 +16,7 @@ class TransactionList extends StatelessWidget {
     return Container(
       height: 300,
       child: ListView.builder(
-        itemBuilder: (context, index) => TransactionCard(
+        itemBuilder: (context, index) => TransactionItem(
           transaction: _transactions[index],
         ),
         itemCount: _transactions.length,
