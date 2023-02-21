@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
-import 'package:flutter_expense_tracker/widgets/transaction/transaction_card.dart';
+
+import 'widgets/transaction/create_transaction_form.dart';
+import 'widgets/transaction/transaction_list.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Expense Tracker',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.purple,
       ),
       home: MyHomePage(),
     );
@@ -47,25 +49,19 @@ class MyHomePage extends StatelessWidget {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Card(
               child: Container(
-                color: Colors.red,
+                color: Colors.blue,
                 width: double.infinity,
                 child: const Text("Chart!"),
               ),
             ),
-            Column(
-              children: transactions.map(
-                (transaction) {
-                  return TransactionCard(
-                    transaction: transaction,
-                  );
-                },
-              ).toList(),
-            )
+            CreateTransactionForm(
+              onSubmit: (title, amount) => {},
+            ),
+            TransactionList(transactions: transactions),
           ],
         ),
       ),
