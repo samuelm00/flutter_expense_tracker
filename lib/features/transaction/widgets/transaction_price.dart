@@ -14,17 +14,17 @@ class TransactionPrice extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Colors.purple,
+          color: Theme.of(context).primaryColor,
           width: 2,
         ),
       ),
       padding: const EdgeInsets.all(10),
       child: Text(
         "\$$amount",
-        style: const TextStyle(
+        style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 20,
-          color: Colors.purple,
+          color: Theme.of(context).primaryColor,
         ),
       ),
     );
