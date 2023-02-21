@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_expense_tracker/widgets/transaction/transaction_feed.dart';
 
 void main() {

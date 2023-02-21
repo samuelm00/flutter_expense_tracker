@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_expense_tracker/widgets/transaction/create_transaction_form.dart';
 import 'package:flutter_expense_tracker/widgets/transaction/transaction_list.dart';
@@ -13,7 +11,7 @@ class TransactionFeed extends StatefulWidget {
 }
 
 class _TransactionFeedState extends State<TransactionFeed> {
-  final List<Transaction> transactions = [
+  final List<Transaction> _transactions = [
     Transaction(
       id: "t1",
       title: "New Shoes",
@@ -28,14 +26,29 @@ class _TransactionFeedState extends State<TransactionFeed> {
     ),
   ];
 
+  void _addNewTransaction(String title, double amount) {
+    final newTx = Transaction(
+      title: title,
+      amount: amount,
+      date: DateTime.now(),
+      id: DateTime.now().toString(),
+    );
+
+    setState(() {
+      _transactions.add(newTx);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CreateTransactionForm(
-          onSubmit: (title, amount) => {},
+          onSubmit: _addNewTransaction,
         ),
-        TransactionList(transactions: transactions),
+        TransactionList(
+          transactions: _transactions,
+        ),
       ],
     );
   }

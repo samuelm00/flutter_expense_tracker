@@ -31,7 +31,12 @@ class CreateTransactionForm extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                onSubmit(
+                  titleController.text,
+                  double.parse(amountController.text),
+                );
+              },
               child: const Text("Add Transaction"),
             )
           ],

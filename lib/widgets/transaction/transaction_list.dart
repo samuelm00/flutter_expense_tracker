@@ -6,15 +6,15 @@ import 'transaction_card.dart';
 class TransactionList extends StatelessWidget {
   const TransactionList({
     super.key,
-    required this.transactions,
-  });
+    required List<Transaction> transactions,
+  }) : _transactions = transactions;
 
-  final List<Transaction> transactions;
+  final List<Transaction> _transactions;
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: transactions.map(
+      children: _transactions.map(
         (transaction) {
           return TransactionCard(
             transaction: transaction,
