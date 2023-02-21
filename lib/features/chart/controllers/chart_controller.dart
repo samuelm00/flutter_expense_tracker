@@ -1,5 +1,5 @@
+import 'package:flutter_expense_tracker/features/chart/models/grouped_date_data.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
-import 'package:intl/intl.dart';
 
 class ChartController {
   ChartController({required this.recentTransactions});
@@ -12,19 +12,23 @@ class ChartController {
         date1.year == date2.year;
   }
 
-  List<Map> get groupedTransactions {
+  List<GroupedDateData> get groupedTransactions {
     return List.generate(
       7,
       (index) {
         final weekday = DateTime.now().subtract(Duration(days: index));
 
-        return {
-          "day": DateFormat.E(weekday),
-          "amount": recentTransactions
+        return GroupedDateData(
+          date: weekday,
+          value: recentTransactions
               .where((element) => isSameDate(element.date, weekday))
-              .fold(0.0, (sum, element) => sum + element.amount)
-        };
+              .fold(0.0, (sum, element) => sum + element.amount),
+        );
       },
     );
+  }
+
+  double get totalSpending {
+    return recentTransactions.fold(0.0, (sum, element) => sum + element.amount);
   }
 }

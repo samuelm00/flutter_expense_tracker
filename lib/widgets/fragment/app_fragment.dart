@@ -29,7 +29,7 @@ class _AppFragmentState extends State<AppFragment> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Chart(
-            recentTransactions: transactionController.transactions,
+            recentTransactions: transactionController.recentTransactions,
           ),
           CreateTransactionForm(
             onSubmit: transactionController.addNewTransaction,

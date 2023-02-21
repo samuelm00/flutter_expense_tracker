@@ -26,6 +26,16 @@ class TransactionController {
 
   get transactions => _transactions;
 
+  List<Transaction> get recentTransactions {
+    return _transactions.where((element) {
+      return element.date.isAfter(
+        DateTime.now().subtract(
+          const Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
+
   void addNewTransaction(String title, double amount) {
     final newTx = Transaction(
       title: title,
