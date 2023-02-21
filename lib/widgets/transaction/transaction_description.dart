@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import "package:intl/intl.dart";
 
 class TransactionDescription extends StatelessWidget {
   const TransactionDescription(
@@ -20,7 +21,7 @@ class TransactionDescription extends StatelessWidget {
           ),
         ),
         Text(
-          date.toString(),
+          DateFormat("d-m-y").format(date),
           style: const TextStyle(
             color: Colors.grey,
           ),
