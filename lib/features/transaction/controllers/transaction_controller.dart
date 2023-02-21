@@ -42,9 +42,10 @@ class TransactionController {
   void stratNewTransaction(BuildContext context) {
     bottomSheetController.showBaseBottomSheet(
       context,
-      CreateTransactionForm(
-        onSubmit: addNewTransaction,
-      ),
+      CreateTransactionForm(onSubmit: (title, amount) {
+        addNewTransaction(title, amount);
+        bottomSheetController.closeBottomSheet(context);
+      }),
     );
   }
 }
