@@ -49,6 +49,12 @@ class TransactionController {
     });
   }
 
+  void deleteTransaction(String id) {
+    setState(() {
+      _transactions.removeWhere((element) => element.id == id);
+    });
+  }
+
   void stratNewTransaction(BuildContext context) {
     bottomSheetController.showBaseBottomSheet(
       context,

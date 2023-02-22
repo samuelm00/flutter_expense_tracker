@@ -37,6 +37,7 @@ class _AppFragmentState extends State<AppFragment> {
             ),
             TransactionList(
               transactions: transactionController.transactions,
+              onDelete: transactionController.deleteTransaction,
             ),
           ],
         ),

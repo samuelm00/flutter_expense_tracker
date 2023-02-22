@@ -3,12 +3,11 @@ import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:intl/intl.dart';
 
 class TransactionItem extends StatelessWidget {
-  const TransactionItem({
-    super.key,
-    required this.transaction,
-  });
+  const TransactionItem(
+      {super.key, required this.transaction, required this.onDelete});
 
   final Transaction transaction;
+  final Function(String) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +24,15 @@ class TransactionItem extends StatelessWidget {
         subtitle: Text(
           DateFormat.yMMMd().format(transaction.date),
           style: Theme.of(context).textTheme.labelMedium,
+        ),
+        trailing: IconButton(
+          icon: Icon(
+            Icons.delete,
+            color: Theme.of(context).colorScheme.error,
+          ),
+          onPressed: () {
+            onDelete(transaction.id);
+          },
         ),
         leading: CircleAvatar(
           backgroundColor: Theme.of(context).primaryColor,
