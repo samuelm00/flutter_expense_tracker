@@ -1,23 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart.dart';
 import 'package:flutter_expense_tracker/features/transaction/controllers/transaction_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/transaction/widgets/transaction_list.dart';
 
-class AppFragment extends StatefulWidget {
+class AppFragment extends ConsumerWidget {
   const AppFragment({
     super.key,
   });
 
   @override
-  State<AppFragment> createState() => _AppFragmentState();
-}
-
-class _AppFragmentState extends State<AppFragment> {
-  final transactionController = TransactionController();
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Expense Tracker"),
@@ -37,7 +31,9 @@ class _AppFragmentState extends State<AppFragment> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => transactionController.stratNewTransaction(context),
+        onPressed: () => ref
+            .watch(transactionControllerProvider)
+            .stratNewTransaction(context),
       ),
     );
   }

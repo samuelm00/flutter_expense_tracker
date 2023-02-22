@@ -5,11 +5,16 @@ import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final transactionControllerProvider = StateProvider<TransactionController>(
-  (ref) => TransactionController(),
+  (ref) => TransactionController(notifyListeners: ref.notifyListeners),
 );
 
 class TransactionController {
+  TransactionController({
+    required this.notifyListeners,
+  });
+
   final BottomSheetController bottomSheetController = BottomSheetController();
+  final Function() notifyListeners;
 
   final _transactions = <Transaction>[
     Transaction(
@@ -47,10 +52,12 @@ class TransactionController {
     );
 
     _transactions.add(newTx);
+    notifyListeners();
   }
 
   void deleteTransaction(String id) {
     _transactions.removeWhere((element) => element.id == id);
+    notifyListeners();
   }
 
   void stratNewTransaction(BuildContext context) {
@@ -61,5 +68,10 @@ class TransactionController {
         bottomSheetController.closeBottomSheet(context);
       }),
     );
+  }
+
+  @override
+  String toString() {
+    return _transactions.toString();
   }
 }

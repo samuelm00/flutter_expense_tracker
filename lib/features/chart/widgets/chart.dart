@@ -7,17 +7,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class Chart extends ConsumerWidget {
   Chart({super.key});
 
-  late final ChartController chartController;
-
-  void initChartController(WidgetRef ref) {
+  ChartController initChartController(WidgetRef ref) {
     final recentTransactions =
         ref.watch(transactionControllerProvider).recentTransactions;
-    chartController = ChartController(recentTransactions: recentTransactions);
+    return ChartController(recentTransactions: recentTransactions);
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    initChartController(ref);
+    final chartController = initChartController(ref);
 
     return Card(
       elevation: 6,

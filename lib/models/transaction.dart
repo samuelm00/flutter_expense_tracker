@@ -15,4 +15,9 @@ class Transaction {
   String get getTitle => title;
   double get getAmount => amount;
   DateTime get getDate => date;
+
+  @override
+  String toString() {
+    return 'Transaction{id: $id, title: $title, amount: $amount, date: $date}';
+  }
 }
