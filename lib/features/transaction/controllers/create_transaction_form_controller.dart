@@ -11,6 +11,10 @@ class CreateTransactionFormController {
   final _amountController = TextEditingController();
   final _datePickerController = DatePickerController();
 
+  TextEditingController get titleController => _titleController;
+  TextEditingController get amountController => _amountController;
+  DatePickerController get datePickerController => _datePickerController;
+
   bool _isInputValid() {
     final title = _titleController.text;
 
@@ -39,10 +43,6 @@ class CreateTransactionFormController {
       _amountController.clear();
     }
   }
-
-  TextEditingController get titleController => _titleController;
-  TextEditingController get amountController => _amountController;
-  DatePickerController get datePickerController => _datePickerController;
 
   void dispose() {
     _titleController.dispose();
