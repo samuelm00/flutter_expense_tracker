@@ -16,10 +16,7 @@ class TransactionList extends ConsumerWidget {
         itemBuilder: (context, index) => TransactionItem(
           transaction:
               ref.watch(transactionControllerProvider).transactions[index],
-          onDelete: ref
-              .watch(transactionControllerProvider.notifier)
-              .state
-              .deleteTransaction,
+          onDelete: ref.watch(transactionControllerProvider).deleteTransaction,
         ),
         itemCount: ref.watch(transactionControllerProvider).transactions.length,
       ),
