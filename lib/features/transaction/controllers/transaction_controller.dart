@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/utils/bottom_sheet/bottom_sheet_controller.dart';
 import 'package:flutter_expense_tracker/features/transaction/widgets/create_transaction_form.dart';
 import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final transactionControllerProvider = Provider<TransactionController>(
+  (ref) => TransactionController(),
+);
 
 class TransactionController {
-  final void Function(Function()) setState;
   final BottomSheetController bottomSheetController = BottomSheetController();
 
   final _transactions = <Transaction>[
@@ -21,8 +25,6 @@ class TransactionController {
       date: DateTime.now(),
     ),
   ];
-
-  TransactionController({required this.setState});
 
   get transactions => _transactions;
 
@@ -44,15 +46,11 @@ class TransactionController {
       id: DateTime.now().toString(),
     );
 
-    setState(() {
-      _transactions.add(newTx);
-    });
+    _transactions.add(newTx);
   }
 
   void deleteTransaction(String id) {
-    setState(() {
-      _transactions.removeWhere((element) => element.id == id);
-    });
+    _transactions.removeWhere((element) => element.id == id);
   }
 
   void stratNewTransaction(BuildContext context) {

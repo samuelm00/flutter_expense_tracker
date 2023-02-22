@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/features/chart/controllers/chart_controller.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart_bar.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/features/transaction/controllers/transaction_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Chart extends StatelessWidget {
-  Chart({super.key, required List<Transaction> recentTransactions})
-      : chartController =
-            ChartController(recentTransactions: recentTransactions);
+class Chart extends ConsumerWidget {
+  Chart({super.key});
 
-  final ChartController chartController;
+  late final ChartController chartController;
+
+  void initChartController(WidgetRef ref) {
+    final recentTransactions =
+        ref.watch(transactionControllerProvider).recentTransactions;
+    chartController = ChartController(recentTransactions: recentTransactions);
+  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    initChartController(ref);
+
     return Card(
       elevation: 6,
       child: Padding(

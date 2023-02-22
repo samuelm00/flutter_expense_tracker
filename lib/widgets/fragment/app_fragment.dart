@@ -14,9 +14,7 @@ class AppFragment extends StatefulWidget {
 }
 
 class _AppFragmentState extends State<AppFragment> {
-  late final transactionController = TransactionController(
-    setState: setState,
-  );
+  final transactionController = TransactionController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +27,7 @@ class _AppFragmentState extends State<AppFragment> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Chart(
-              recentTransactions: transactionController.recentTransactions,
-            ),
+            Chart(),
             const SizedBox(
               height: 16,
             ),
