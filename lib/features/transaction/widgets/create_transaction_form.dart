@@ -16,6 +16,12 @@ class CreateTransactionForm extends StatefulWidget {
 
 class _CreateTransactionFormState extends State<CreateTransactionForm> {
   @override
+  void dispose() {
+    super.dispose();
+    widget.controller.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
