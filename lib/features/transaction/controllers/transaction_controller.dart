@@ -36,11 +36,11 @@ class TransactionController {
     }).toList();
   }
 
-  void addNewTransaction(String title, double amount) {
+  void addNewTransaction(String title, double amount, DateTime date) {
     final newTx = Transaction(
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: date,
       id: DateTime.now().toString(),
     );
 
@@ -52,8 +52,8 @@ class TransactionController {
   void stratNewTransaction(BuildContext context) {
     bottomSheetController.showBaseBottomSheet(
       context,
-      CreateTransactionForm(onSubmit: (title, amount) {
-        addNewTransaction(title, amount);
+      CreateTransactionForm(onSubmit: (title, amount, date) {
+        addNewTransaction(title, amount, date);
         bottomSheetController.closeBottomSheet(context);
       }),
     );

@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/features/transaction/controllers/create_transaction_form_controller.dart';
+import 'package:intl/intl.dart';
 
-class CreateTransactionForm extends StatelessWidget {
+class CreateTransactionForm extends StatefulWidget {
   CreateTransactionForm({
     super.key,
-    required onSubmit,
+    required Function(String, double, DateTime) onSubmit,
   }) : controller = CreateTransactionFormController(onSubmit: onSubmit);
 
   final CreateTransactionFormController controller;
 
+  @override
+  State<CreateTransactionForm> createState() => _CreateTransactionFormState();
+}
+
+class _CreateTransactionFormState extends State<CreateTransactionForm> {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -18,26 +24,36 @@ class CreateTransactionForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextField(
-              controller: controller.titleController,
+              controller: widget.controller.titleController,
               decoration: const InputDecoration(
                 labelText: "Title",
               ),
             ),
             TextField(
-              controller: controller.amountController,
+              controller: widget.controller.amountController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Amount",
               ),
             ),
-            Container(
+            SizedBox(
               height: 70,
               child: Row(
-                children: const [
-                  Text("No Date Chosen!"),
+                children: [
+                  Text(
+                    widget.controller.datePickerController.selectedDate == null
+                        ? "No Date Chosen!"
+                        : DateFormat.yMd().format(
+                            widget
+                                .controller.datePickerController.selectedDate!,
+                          ),
+                  ),
                   TextButton(
-                    onPressed: null,
-                    child: Text(
+                    onPressed: () {
+                      widget.controller.datePickerController.showBaseDatePicker(
+                          context: context, setState: setState);
+                    },
+                    child: const Text(
                       "Choose Date",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
@@ -48,7 +64,7 @@ class CreateTransactionForm extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              onPressed: controller.handleSubmit,
+              onPressed: widget.controller.handleSubmit,
               child: const Text("Add Transaction"),
             )
           ],
