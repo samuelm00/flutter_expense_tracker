@@ -3,10 +3,10 @@ import 'package:flutter_expense_tracker/utils/date_picker/date_picker_controller
 
 class CreateTransactionFormController {
   CreateTransactionFormController({
-    required this.onSubmit,
-  });
+    required Function(String, double, DateTime) onSubmit,
+  }) : _onSubmit = onSubmit;
 
-  final Function(String, double, DateTime) onSubmit;
+  final Function(String, double, DateTime) _onSubmit;
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   final _datePickerController = DatePickerController();
@@ -33,7 +33,7 @@ class CreateTransactionFormController {
       final title = _titleController.text;
       final amount = double.parse(_amountController.text);
 
-      onSubmit(title, amount, _datePickerController.selectedDate!);
+      _onSubmit(title, amount, _datePickerController.selectedDate!);
 
       _titleController.clear();
       _amountController.clear();
