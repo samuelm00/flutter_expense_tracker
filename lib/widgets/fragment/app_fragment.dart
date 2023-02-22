@@ -31,10 +31,7 @@ class _AppFragmentState extends State<AppFragment> {
             const SizedBox(
               height: 16,
             ),
-            TransactionList(
-              transactions: transactionController.transactions,
-              onDelete: transactionController.deleteTransaction,
-            ),
+            TransactionList(),
           ],
         ),
       ),

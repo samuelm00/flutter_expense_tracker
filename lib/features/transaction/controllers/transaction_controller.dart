@@ -4,7 +4,7 @@ import 'package:flutter_expense_tracker/features/transaction/widgets/create_tran
 import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final transactionControllerProvider = Provider<TransactionController>(
+final transactionControllerProvider = StateProvider<TransactionController>(
   (ref) => TransactionController(),
 );
 
