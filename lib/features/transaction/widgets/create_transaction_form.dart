@@ -30,6 +30,23 @@ class CreateTransactionForm extends StatelessWidget {
                 labelText: "Amount",
               ),
             ),
+            Container(
+              height: 70,
+              child: Row(
+                children: const [
+                  Text("No Date Chosen!"),
+                  TextButton(
+                    onPressed: null,
+                    child: Text(
+                      "Choose Date",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             ElevatedButton(
               onPressed: controller.handleSubmit,
               child: const Text("Add Transaction"),
