@@ -2,27 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart.dart';
 import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
 import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_state.dart';
-import 'package:flutter_expense_tracker/features/transaction/widgets/create_transaction_form.dart';
 import 'package:flutter_expense_tracker/features/transaction/widgets/transaction_list.dart';
-import 'package:flutter_expense_tracker/utils/bottom_sheet/bottom_sheet_controller.dart';
+import "package:flutter_expense_tracker/features/transaction/widgets/create_transaction_fb.dart";
 
-class AppFragment extends StatefulWidget {
+class AppFragment extends StatelessWidget {
   const AppFragment({
     super.key,
   });
 
   @override
-  State<AppFragment> createState() => _AppFragmentState();
-}
-
-class _AppFragmentState extends State<AppFragment> {
-  final bottomSheetController = BottomSheetController();
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TransactionBloc(),
+      create: (context) => TransactionBloc()
+        ..add(const TransactionFetchEvent())
+        ..add(const TransactionFetchReventEvent()),
       child: BlocBuilder<TransactionBloc, TransactionState>(
         builder: (context, state) {
           return Scaffold(
@@ -46,13 +41,7 @@ class _AppFragmentState extends State<AppFragment> {
                 ],
               ),
             ),
-            floatingActionButton: FloatingActionButton(
-              child: const Icon(Icons.add),
-              onPressed: () => bottomSheetController.showBaseBottomSheet(
-                context,
-                CreateTransactionForm(),
-              ),
-            ),
+            floatingActionButton: CreateTransactionFB(),
           );
         },
       ),
