@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/network/models/transaction.dart';
 
 import 'transaction_item.dart';
 

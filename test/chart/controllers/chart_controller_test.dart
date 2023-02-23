@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter_expense_tracker/features/chart/controllers/chart_controller.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/network/models/transaction.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

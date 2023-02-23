@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/features/chart/controllers/chart_controller.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart_bar.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/network/models/transaction.dart';
 
 class Chart extends StatelessWidget {
   Chart({super.key, required List<Transaction> recentTransactions})

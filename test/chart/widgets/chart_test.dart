@@ -1,6 +1,6 @@
 import 'package:flutter_expense_tracker/features/chart/widgets/chart.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart_bar.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/network/models/transaction.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/test_app.dart';

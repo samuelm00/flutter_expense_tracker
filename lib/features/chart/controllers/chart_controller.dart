@@ -1,5 +1,5 @@
 import 'package:flutter_expense_tracker/features/chart/models/grouped_date_data.dart';
-import 'package:flutter_expense_tracker/models/transaction.dart';
+import 'package:flutter_expense_tracker/network/models/transaction.dart';
 
 class ChartController {
   ChartController({required this.recentTransactions});
