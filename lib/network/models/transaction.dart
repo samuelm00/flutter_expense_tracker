@@ -1,5 +1,6 @@
-import 'package:flutter_expense_tracker/network/types/json_map.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import '../types/json_map.dart';
 
 part "transaction.g.dart";
 

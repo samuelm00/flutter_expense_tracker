@@ -1,10 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/network/apis/transaction_api.dart';
 import 'package:flutter_expense_tracker/network/models/transaction.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'transaction_api.dart';
 
 class LocalStorageTransactionApi extends TansactionApi {
   LocalStorageTransactionApi({required this.localStorage}) {
@@ -12,7 +13,7 @@ class LocalStorageTransactionApi extends TansactionApi {
   }
 
   final SharedPreferences localStorage;
-  final _transactionController = BehaviorSubject<List<Transaction>>.seeded([]);
+  final _transactionStream = BehaviorSubject<List<Transaction>>.seeded([]);
 
   @visibleForTesting
   final String key = 'transactions';
@@ -23,6 +24,7 @@ class LocalStorageTransactionApi extends TansactionApi {
 
   void _init() {
     final transactions = _getTransactions();
+    _transactionStream.add(transactions);
   }
 
   List<Transaction> _getTransactions() {
@@ -41,25 +43,25 @@ class LocalStorageTransactionApi extends TansactionApi {
 
   @override
   Stream<List<Transaction>> getTransactions() =>
-      _transactionController.asBroadcastStream();
+      _transactionStream.asBroadcastStream();
 
   @override
   Future<Transaction> createTransaction(Transaction transaction) async {
-    final transactions = [..._transactionController.value, transaction];
+    final transactions = [..._transactionStream.value, transaction];
 
     await _setValue(key, json.encode(transactions));
-    _transactionController.add(transactions);
+    _transactionStream.add(transactions);
 
     return transaction;
   }
 
   @override
   Future<void> deleteTransaction(String id) async {
-    final transactions = _transactionController.value
+    final transactions = _transactionStream.value
         .where((transaction) => transaction.id != id)
         .toList();
 
     await _setValue(key, json.encode(transactions));
-    _transactionController.add(transactions);
+    _transactionStream.add(transactions);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_expense_tracker/network/models/transaction.dart';
 import 'package:intl/intl.dart';
+
+import '../../../network/models/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
   const TransactionItem(
