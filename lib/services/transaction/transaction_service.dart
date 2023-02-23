@@ -4,7 +4,7 @@ import 'package:flutter_expense_tracker/network/models/transaction.dart';
 class TransactionService {
   const TransactionService({required this.transactionApi});
 
-  final TansactionApi transactionApi;
+  final TransactionApi transactionApi;
 
   Stream<List<Transaction>> getTransactions() =>
       transactionApi.getTransactions();

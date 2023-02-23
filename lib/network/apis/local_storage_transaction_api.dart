@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'transaction_api.dart';
 
-class LocalStorageTransactionApi extends TansactionApi {
+class LocalStorageTransactionApi extends TransactionApi {
   LocalStorageTransactionApi({required this.localStorage}) {
     _init();
   }
