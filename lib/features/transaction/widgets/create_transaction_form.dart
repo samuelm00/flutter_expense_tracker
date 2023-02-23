@@ -1,14 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expense_tracker/features/transaction/controllers/create_transaction_form_controller.dart';
+import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
+import 'package:flutter_expense_tracker/utils/bottom_sheet/bottom_sheet_controller.dart';
 import 'package:intl/intl.dart';
+
+import '../../../network/models/transaction.dart';
 
 class CreateTransactionForm extends StatefulWidget {
   CreateTransactionForm({
     super.key,
-    required Function(String, double, DateTime) onSubmit,
-  }) : controller = CreateTransactionFormController(onSubmit: onSubmit);
+  });
 
-  final CreateTransactionFormController controller;
+  final CreateTransactionFormController controller =
+      CreateTransactionFormController();
+  final BottomSheetController bottomSheetController = BottomSheetController();
 
   @override
   State<CreateTransactionForm> createState() => _CreateTransactionFormState();
@@ -19,6 +26,22 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
   void dispose() {
     super.dispose();
     widget.controller.dispose();
+  }
+
+  void handleSubmit() {
+    widget.controller.handleSubmit((title, amount, date) {
+      context.read<TransactionBloc>().add(
+            CreateTransactionEvent(
+              Transaction(
+                title: title,
+                amount: amount,
+                date: date,
+                id: DateTime.now().toString(),
+              ),
+            ),
+          );
+      widget.bottomSheetController.closeBottomSheet(context);
+    });
   }
 
   @override
@@ -70,7 +93,7 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
               ),
             ),
             ElevatedButton(
-              onPressed: widget.controller.handleSubmit,
+              onPressed: handleSubmit,
               child: const Text("Add Transaction"),
             )
           ],

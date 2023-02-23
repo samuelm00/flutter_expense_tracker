@@ -5,7 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 final getIt = GetIt.instance;
 
-void setupDependencies() async {
+Future<void> setupDependencies() async {
   getIt.registerSingleton<TransactionApi>(LocalStorageTransactionApi(
     localStorage: await SharedPreferences.getInstance(),
   ));

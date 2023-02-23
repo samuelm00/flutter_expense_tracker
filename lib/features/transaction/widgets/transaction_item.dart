@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
 import 'package:intl/intl.dart';
 
 import '../../../network/models/transaction.dart';
 
 class TransactionItem extends StatelessWidget {
-  const TransactionItem(
-      {super.key, required this.transaction, required this.onDelete});
+  const TransactionItem({super.key, required this.transaction});
 
   final Transaction transaction;
-  final Function(String) onDelete;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +33,9 @@ class TransactionItem extends StatelessWidget {
             color: Theme.of(context).colorScheme.error,
           ),
           onPressed: () {
-            onDelete(transaction.id);
+            context
+                .read<TransactionBloc>()
+                .add(DeleteTransactionEvent(transactionId: transaction.id));
           },
         ),
         leading: CircleAvatar(

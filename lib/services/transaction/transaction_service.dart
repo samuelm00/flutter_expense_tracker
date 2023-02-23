@@ -1,17 +1,32 @@
 import 'package:flutter_expense_tracker/network/apis/transaction_api.dart';
 import 'package:flutter_expense_tracker/network/models/transaction.dart';
+import 'package:get_it/get_it.dart';
 
 class TransactionService {
-  const TransactionService({required this.transactionApi});
+  TransactionService() : _transactionApi = GetIt.instance.get<TransactionApi>();
 
-  final TransactionApi transactionApi;
+  final TransactionApi _transactionApi;
 
   Stream<List<Transaction>> getTransactions() =>
-      transactionApi.getTransactions();
+      _transactionApi.getTransactions();
 
   Future<Transaction> createTransaction(Transaction transaction) =>
-      transactionApi.createTransaction(transaction);
+      _transactionApi.createTransaction(transaction);
 
   Future<void> deleteTransaction(String id) =>
-      transactionApi.deleteTransaction(id);
+      _transactionApi.deleteTransaction(id);
+
+  Stream<List<Transaction>> getRecentTransactions() {
+    return _transactionApi.getTransactions().map(
+          (transactions) => transactions.where(
+            (element) {
+              return element.date.isAfter(
+                DateTime.now().subtract(
+                  const Duration(days: 7),
+                ),
+              );
+            },
+          ).toList(),
+        );
+  }
 }
