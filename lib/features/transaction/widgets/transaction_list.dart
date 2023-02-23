@@ -11,14 +11,15 @@ class TransactionList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final transactions = ref.watch(transactionControllerProvider).transactions;
+
     return Expanded(
       child: ListView.builder(
         itemBuilder: (context, index) => TransactionItem(
-          transaction:
-              ref.watch(transactionControllerProvider).transactions[index],
+          transaction: transactions[index],
           onDelete: ref.watch(transactionControllerProvider).deleteTransaction,
         ),
-        itemCount: ref.watch(transactionControllerProvider).transactions.length,
+        itemCount: transactions.length,
       ),
     );
   }
