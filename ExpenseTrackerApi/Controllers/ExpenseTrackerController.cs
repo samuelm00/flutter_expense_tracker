@@ -4,18 +4,18 @@ namespace ExpenseTrackerApi.Controllers;
 
 [ApiController]
 [Route("transactions")]
-public class ExpenseTrackerApi : ControllerBase
+public class ExpenseTrackerController : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<ExpenseTrackerApi> _logger;
+    private readonly ILogger<ExpenseTrackerController> _logger;
 
     private List<TransactionDTO> _transactions = new List<TransactionDTO>();
 
-    public ExpenseTrackerApi(ILogger<ExpenseTrackerApi> logger)
+    public ExpenseTrackerController(ILogger<ExpenseTrackerController> logger)
     {
         _logger = logger;
     }
