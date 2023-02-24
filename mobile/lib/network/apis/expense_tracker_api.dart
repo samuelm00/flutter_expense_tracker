@@ -15,11 +15,7 @@ class ExpenseTrackerApi extends TransactionApi {
 
   @override
   Stream<List<Transaction>> getTransactions() {
-    return Stream.fromFuture(
-      http.get(
-        _constructUri("/transactions"),
-      ),
-    ).map(
+    return Stream.fromFuture(http.get(_constructUri("/transactions"))).map(
       (response) {
         if (response.statusCode == 200) {
           return List<Map<dynamic, dynamic>>.from(
@@ -39,40 +35,34 @@ class ExpenseTrackerApi extends TransactionApi {
   }
 
   @override
-  Future<Transaction> createTransaction(Transaction transaction) {
-    return http
-        .post(
+  Future<Transaction> createTransaction(Transaction transaction) async {
+    final response = await http.post(
       _constructUri("/transactions"),
       headers: {
         "Content-Type": "application/json",
       },
-      body: json.encode(transaction.toJson()),
-    )
-        .then(
-      (response) {
-        if (response.statusCode == 200) {
-          return Transaction.fromJson(
-            Map<String, dynamic>.from(jsonDecode(response.body)),
-          );
-        } else {
-          throw Exception("Failed to create transaction");
-        }
-      },
+      body: json.encode(
+        transaction.toJson(),
+      ),
     );
+
+    if (response.statusCode == 200) {
+      return Transaction.fromJson(
+        Map<String, dynamic>.from(jsonDecode(response.body)),
+      );
+    } else {
+      throw Exception("Failed to create transaction");
+    }
   }
 
   @override
-  Future<void> deleteTransaction(String id) {
-    return http
-        .delete(
+  Future<void> deleteTransaction(String id) async {
+    final response = await http.delete(
       _constructUri("/transactions/$id"),
-    )
-        .then(
-      (response) {
-        if (response.statusCode != 200) {
-          throw Exception("Failed to delete transaction");
-        }
-      },
     );
+
+    if (response.statusCode != 200) {
+      throw Exception("Failed to delete transaction");
+    }
   }
 }
