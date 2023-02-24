@@ -29,13 +29,15 @@ public class ExpenseTrackerApi : ControllerBase
     [HttpPost]
     public TransactionDTO AddTransaction(TransactionDTO transaction)
     {
+        _logger.LogInformation("Adding transaction with id: " + transaction.Id);
         _transactions.Add(transaction);
         return transaction;
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public IActionResult DeleteTransaction(string id)
     {
+        _logger.LogInformation("Deleting transaction with id: " + id);
         _transactions.RemoveAll(t => t.Id == id);
         return Ok();
     }
