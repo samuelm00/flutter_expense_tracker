@@ -8,13 +8,13 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
     on<TransactionFetchEvent>(_onTransactionFetchEvent);
     on<CreateTransactionEvent>(_onCreateTransactionEvent);
     on<DeleteTransactionEvent>(_onDeleteTransactionEvent);
-    on<TransactionFetchReventEvent>(_onTransactionFetchRecentEvent);
+    on<TransactionFetchRecentEvent>(_onTransactionFetchRecentEvent);
   }
 
   final TransactionService transactionService = TransactionService();
 
   void _onTransactionFetchRecentEvent(
-      TransactionFetchReventEvent event, Emitter<TransactionState> emit) async {
+      TransactionFetchRecentEvent event, Emitter<TransactionState> emit) async {
     await emit.forEach(
       transactionService.getRecentTransactions(),
       onData: (transaction) => state.copyWith(

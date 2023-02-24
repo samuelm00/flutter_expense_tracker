@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import '../types/json_map.dart';
 
 part "transaction.g.dart";
 
+@immutable
 @JsonSerializable()
 class Transaction {
   final String id;
@@ -11,7 +13,7 @@ class Transaction {
   final double amount;
   final DateTime date;
 
-  Transaction({
+  const Transaction({
     required this.id,
     required this.title,
     required this.amount,

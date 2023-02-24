@@ -10,8 +10,8 @@ class TransactionFetchEvent extends TransactionEvent {
   const TransactionFetchEvent();
 }
 
-class TransactionFetchReventEvent extends TransactionEvent {
-  const TransactionFetchReventEvent();
+class TransactionFetchRecentEvent extends TransactionEvent {
+  const TransactionFetchRecentEvent();
 }
 
 class CreateTransactionEvent extends TransactionEvent {

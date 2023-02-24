@@ -17,7 +17,7 @@ class AppFragment extends StatelessWidget {
     return BlocProvider(
       create: (context) => TransactionBloc()
         ..add(const TransactionFetchEvent())
-        ..add(const TransactionFetchReventEvent()),
+        ..add(const TransactionFetchRecentEvent()),
       child: BlocBuilder<TransactionBloc, TransactionState>(
         builder: (context, state) {
           return Scaffold(
