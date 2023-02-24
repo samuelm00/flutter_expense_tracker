@@ -3,30 +3,40 @@ using Microsoft.AspNetCore.Mvc;
 namespace ExpenseTrackerApi.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-public class WeatherForecastController : ControllerBase
+[Route("transactions")]
+public class ExpenseTrackerApi : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
     };
 
-    private readonly ILogger<WeatherForecastController> _logger;
+    private readonly ILogger<ExpenseTrackerApi> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    private List<TransactionDTO> _transactions = new List<TransactionDTO>();
+
+    public ExpenseTrackerApi(ILogger<ExpenseTrackerApi> logger)
     {
         _logger = logger;
     }
 
-    [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<TransactionDTO> Get()
+    [HttpGet]
+    public IEnumerable<TransactionDTO> GetTransactions()
     {
-        return Enumerable.Range(1, 5).Select(index => new TransactionDTO
-        {
-            Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return _transactions;
+    }
+
+    [HttpPost]
+    public TransactionDTO AddTransaction(TransactionDTO transaction)
+    {
+        _transactions.Add(transaction);
+        return transaction;
+    }
+
+    [HttpDelete]
+    public IActionResult DeleteTransaction(string id)
+    {
+        _transactions.RemoveAll(t => t.Id == id);
+        return Ok();
     }
 }

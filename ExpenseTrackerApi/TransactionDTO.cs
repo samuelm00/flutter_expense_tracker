@@ -2,19 +2,12 @@ namespace ExpenseTrackerApi;
 
 public class TransactionDTO
 {
-    public string id;
+    public string Id {get; set;}
 
-    public string title;
+    public string Title {get; set;}
 
-    public double amount; 
+    public double Amount {get; set;}
 
-    public DateTime date;
+    public DateTime Date {get; set;}
 
-    TransactionDTO(string id, string title, double amount, DateTime date)
-    {
-        this.id = id;
-        this.title = title;
-        this.amount = amount;
-        this.date = date;
-    }
 }
