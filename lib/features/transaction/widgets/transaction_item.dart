@@ -11,6 +11,12 @@ class TransactionItem extends StatelessWidget {
 
   final Transaction transaction;
 
+  void _deleteTransaction(BuildContext context) {
+    context
+        .read<TransactionBloc>()
+        .add(DeleteTransactionEvent(transactionId: transaction.id));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -33,9 +39,7 @@ class TransactionItem extends StatelessWidget {
             color: Theme.of(context).colorScheme.error,
           ),
           onPressed: () {
-            context
-                .read<TransactionBloc>()
-                .add(DeleteTransactionEvent(transactionId: transaction.id));
+            _deleteTransaction(context);
           },
         ),
         leading: CircleAvatar(
