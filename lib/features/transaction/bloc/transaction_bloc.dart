@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_state.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_event.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_state.dart';
 import 'package:flutter_expense_tracker/services/transaction/transaction_service.dart';
 
 class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {

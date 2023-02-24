@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_expense_tracker/features/chart/widgets/chart.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_bloc.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_state.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_event.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_state.dart';
 import 'package:flutter_expense_tracker/features/transaction/widgets/transaction_list.dart';
 import "package:flutter_expense_tracker/features/transaction/widgets/create_transaction_fb.dart";
 

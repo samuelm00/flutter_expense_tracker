@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_bloc.dart';
-import 'package:flutter_expense_tracker/features/transaction/cubit/transaction_event.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_bloc.dart';
+import 'package:flutter_expense_tracker/features/transaction/bloc/transaction_event.dart';
 import 'package:intl/intl.dart';
 
 import '../../../network/models/transaction.dart';
