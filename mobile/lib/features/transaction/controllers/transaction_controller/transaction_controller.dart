@@ -18,11 +18,14 @@ class TransactionController
     extends StateNotifier<AsyncValue<TransactionControllerState>> {
   TransactionController({
     required TransactionService transactionService,
+    BottomSheetController? bottomSheetController,
   })  : _transactionService = transactionService,
+        _bottomSheetController =
+            bottomSheetController ?? BottomSheetController(),
         super(const AsyncValue.loading());
 
   final TransactionService _transactionService;
-  final BottomSheetController bottomSheetController = BottomSheetController();
+  final BottomSheetController _bottomSheetController;
 
   void _updateState(
     List<Transaction>? transactions,
@@ -66,11 +69,11 @@ class TransactionController
   }
 
   void startNewTransaction(BuildContext context) {
-    bottomSheetController.showBaseBottomSheet(
+    _bottomSheetController.showBaseBottomSheet(
       context,
       CreateTransactionForm(onSubmit: (title, amount, date) {
         addNewTransaction(title, amount, date);
-        bottomSheetController.closeBottomSheet(context);
+        _bottomSheetController.closeBottomSheet(context);
       }),
     );
   }

@@ -57,7 +57,9 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
                   TextButton(
                     onPressed: () {
                       widget.controller.datePickerController.showBaseDatePicker(
-                          context: context, setState: setState);
+                        context: context,
+                        setState: setState,
+                      );
                     },
                     child: const Text(
                       "Choose Date",

@@ -16,10 +16,10 @@ class DatePickerController {
       lastDate: lastDate ?? DateTime(2100),
     );
 
-    _setSelectedDate(setState, date);
+    setSelectedDate(setState, date);
   }
 
-  void _setSelectedDate(Function(Function())? setState, date) {
+  void setSelectedDate(Function(Function())? setState, date) {
     if (setState == null) {
       _selectedDate = date;
     } else {

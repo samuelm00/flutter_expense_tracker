@@ -12,11 +12,21 @@ void main() {
   testWidgets(
       "handleSubmit() should not be called controllers that have empty texts",
       (widgetTester) async {
+    const title = "title";
+    const amount = 100.0;
+    final date = DateTime.now();
+
     final onSubmitMock = OnSubmitMockImpl();
 
     final controller =
         CreateTransactionFormController(onSubmit: onSubmitMock.onSubmit);
 
-    verifyNever(onSubmitMock.onSubmit("", 0, DateTime.now()));
+    controller.titleController.text = title;
+    controller.amountController.text = amount.toString();
+    controller.datePickerController.setSelectedDate(null, date);
+
+    controller.handleSubmit();
+
+    verify(onSubmitMock.onSubmit(title, amount, date)).callCount;
   });
 }
