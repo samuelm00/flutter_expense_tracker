@@ -10,9 +10,7 @@ void main() {
       (tester) async {
     await tester.pumpWidget(
       TestApp.getTestApp(
-        Chart(
-          recentTransactions: [],
-        ),
+        Chart(),
       ),
     );
 
@@ -37,9 +35,7 @@ void main() {
 
     await tester.pumpWidget(
       TestApp.getTestApp(
-        Chart(
-          recentTransactions: transactions,
-        ),
+        Chart(),
       ),
     );
 
