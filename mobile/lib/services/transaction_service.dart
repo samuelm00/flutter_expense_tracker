@@ -11,7 +11,7 @@ class TransactionService {
     return await _transactionRepository.getTransactions();
   }
 
-  Future<List<Transaction>> getRecentTransactions(String id) async {
+  Future<List<Transaction>> getRecentTransactions() async {
     final transactions = await _transactionRepository.getTransactions();
 
     return transactions.where((element) {

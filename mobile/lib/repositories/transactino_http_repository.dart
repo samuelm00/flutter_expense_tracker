@@ -48,9 +48,9 @@ class TransactionHttpRepository implements TransactionRepository {
 
   @override
   Future<List<Transaction>> getTransactions() async {
-    final response = await http.get(
-      _constructUri("/transactions"),
-    );
+    final response = await http.get(_constructUri("/transactions"), headers: {
+      "Content-Type": "application/json",
+    });
 
     if (response.statusCode == 200) {
       final List<dynamic> json = jsonDecode(response.body);

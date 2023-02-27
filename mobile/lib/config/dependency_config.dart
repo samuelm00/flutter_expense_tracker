@@ -10,7 +10,7 @@ final transactionRepositoryProvider = Provider<TransactionRepository>((ref) {
   );
 });
 
-final transactionService = Provider<TransactionService>((ref) {
+final transactionServiceProvider = Provider<TransactionService>((ref) {
   return TransactionService(
     transactionRepository: ref.watch(transactionRepositoryProvider),
   );
