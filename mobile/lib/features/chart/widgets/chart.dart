@@ -5,9 +5,9 @@ import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class Chart extends ConsumerWidget {
-  Chart({required List<Transaction> recentTransaction})
+  Chart({required List<Transaction> recentTransactions})
       : chartController =
-            ChartController(recentTransactions: recentTransaction);
+            ChartController(recentTransactions: recentTransactions);
 
   final ChartController chartController;
 

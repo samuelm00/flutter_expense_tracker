@@ -8,11 +8,17 @@
 import 'package:flutter_expense_tracker/app/app.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'setup/test_widget_wrapper.dart';
+
 void main() {
   testWidgets('Simple dummy test to verify if app renders',
       (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(
+      TestWidgetWrapper.createTestEnvironment(
+        const MyApp(),
+      ),
+    );
 
     expect(find.byType(MyApp), findsOneWidget);
   });
