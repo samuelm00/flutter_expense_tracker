@@ -39,11 +39,7 @@ class _AppFragmentState extends ConsumerState<AppFragment> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Chart(
-                    recentTransaction: ref
-                            .watch(transactionControllerProvider)
-                            .value
-                            ?.transactions ??
-                        [],
+                    recentTransaction: state.value?.transactions ?? [],
                   ),
                   const SizedBox(
                     height: 16,
