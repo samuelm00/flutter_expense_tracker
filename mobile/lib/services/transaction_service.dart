@@ -1,33 +1,25 @@
 import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_expense_tracker/repositories/transaction_repository.dart';
+import 'package:flutter_expense_tracker/services/core/crud_service.dart';
 
-class TransactionService {
+class TransactionService implements CrudService<Transaction> {
   final TransactionRepository _transactionRepository;
 
   TransactionService({required TransactionRepository transactionRepository})
       : _transactionRepository = transactionRepository;
 
-  Future<List<Transaction>> getTransactions() async {
+  @override
+  Future<List<Transaction>> getItems() async {
     return await _transactionRepository.getTransactions();
   }
 
-  Future<List<Transaction>> getRecentTransactions() async {
-    final transactions = await _transactionRepository.getTransactions();
-
-    return transactions.where((element) {
-      return element.date.isAfter(
-        DateTime.now().subtract(
-          const Duration(days: 7),
-        ),
-      );
-    }).toList();
+  @override
+  Future<Transaction> addItem(Transaction transaction) {
+    return _transactionRepository.addTransction(transaction);
   }
 
-  Future<Transaction> addTransaction(Transaction transaction) async {
-    return await _transactionRepository.addTransction(transaction);
-  }
-
-  Future<void> deleteTransaction(String id) async {
+  @override
+  Future<void> deleteItem(String id) async {
     return await _transactionRepository.deleteTransaction(id);
   }
 }
