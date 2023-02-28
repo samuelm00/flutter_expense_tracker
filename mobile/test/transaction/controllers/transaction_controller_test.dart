@@ -23,14 +23,14 @@ void main() {
     const amount = 100.0;
     final date = DateTime.now();
 
-    when(mockRepo.addTransction(any)).thenAnswer(
-      (_) async => Transaction(
-        id: DateTime.now().toString(),
-        title: title,
-        amount: amount,
-        date: date,
-      ),
+    final transaction = Transaction(
+      id: date.toString(),
+      title: title,
+      amount: amount,
+      date: date,
     );
+
+    when(mockRepo.addTransction(any)).thenAnswer((_) async => transaction);
 
     final TransactionService transactionService =
         TransactionService(transactionRepository: mockRepo);
@@ -38,9 +38,9 @@ void main() {
     final controller =
         TransactionController(transactionService: transactionService);
 
-    controller.addNewTransaction(title, amount, date);
+    controller.addNewTransaction(transaction);
 
-    verify(mockRepo.addTransction(any)).called(1);
+    verify(mockRepo.addTransction(transaction)).called(1);
   });
 
   testWidgets(
@@ -92,7 +92,7 @@ void main() {
       bottomSheetController: bottomSheetControllerMock,
     );
 
-    controller.startNewTransaction(MockBuildContext());
+    controller.startCreateNewTransaction(MockBuildContext());
 
     verify(bottomSheetControllerMock.showBaseBottomSheet(any, any)).called(1);
   });

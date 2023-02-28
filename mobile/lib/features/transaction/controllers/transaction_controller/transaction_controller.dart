@@ -46,17 +46,9 @@ class TransactionController
     _updateState(transactions);
   }
 
-  Future<void> addNewTransaction(
-      String title, double amount, DateTime date) async {
-    final newTx = Transaction(
-      title: title,
-      amount: amount,
-      date: date,
-      id: DateTime.now().toString(),
-    );
-
-    await _transactionService.addTransaction(newTx);
-    _updateState([...state.value?.transactions ?? [], newTx]);
+  Future<void> addNewTransaction(Transaction transaction) async {
+    await _transactionService.addTransaction(transaction);
+    _updateState([...state.value?.transactions ?? [], transaction]);
   }
 
   Future<void> deleteTransaction(String id) async {
@@ -68,13 +60,10 @@ class TransactionController
     _updateState(transactions);
   }
 
-  void startNewTransaction(BuildContext context) {
+  void startCreateNewTransaction(BuildContext context) {
     _bottomSheetController.showBaseBottomSheet(
       context,
-      CreateTransactionForm(onSubmit: (title, amount, date) {
-        addNewTransaction(title, amount, date);
-        _bottomSheetController.closeBottomSheet(context);
-      }),
+      const CreateTransactionForm(),
     );
   }
 }

@@ -1,24 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expense_tracker/features/transaction/controllers/create_transaction_form_controller.dart';
+import 'package:flutter_expense_tracker/features/transaction/controllers/transaction_controller/transaction_controller.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
-class CreateTransactionForm extends StatefulWidget {
-  CreateTransactionForm({
-    super.key,
-    required Function(String, double, DateTime) onSubmit,
-  }) : controller = CreateTransactionFormController(onSubmit: onSubmit);
+import '../../../models/transaction.dart';
 
-  final CreateTransactionFormController controller;
+class CreateTransactionForm extends ConsumerStatefulWidget {
+  const CreateTransactionForm({
+    super.key,
+  });
 
   @override
-  State<CreateTransactionForm> createState() => _CreateTransactionFormState();
+  ConsumerState<CreateTransactionForm> createState() =>
+      _CreateTransactionFormState();
 }
 
-class _CreateTransactionFormState extends State<CreateTransactionForm> {
+class _CreateTransactionFormState extends ConsumerState<CreateTransactionForm> {
+  late CreateTransactionFormController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = CreateTransactionFormController(
+      createTransaction: (Transaction transaction) {
+        return ref
+            .read(transactionControllerProvider.notifier)
+            .addNewTransaction(transaction);
+      },
+    );
+  }
+
   @override
   void dispose() {
     super.dispose();
-    widget.controller.dispose();
+    controller.dispose();
   }
 
   @override
@@ -30,13 +46,13 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextField(
-              controller: widget.controller.titleController,
+              controller: controller.titleController,
               decoration: const InputDecoration(
                 labelText: "Title",
               ),
             ),
             TextField(
-              controller: widget.controller.amountController,
+              controller: controller.amountController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                 labelText: "Amount",
@@ -47,16 +63,15 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
               child: Row(
                 children: [
                   Text(
-                    widget.controller.datePickerController.selectedDate == null
+                    controller.datePickerController.selectedDate == null
                         ? "No Date Chosen!"
                         : DateFormat.yMd().format(
-                            widget
-                                .controller.datePickerController.selectedDate!,
+                            controller.datePickerController.selectedDate!,
                           ),
                   ),
                   TextButton(
                     onPressed: () {
-                      widget.controller.datePickerController.showBaseDatePicker(
+                      controller.datePickerController.showBaseDatePicker(
                         context: context,
                         setState: setState,
                       );
@@ -72,7 +87,9 @@ class _CreateTransactionFormState extends State<CreateTransactionForm> {
               ),
             ),
             ElevatedButton(
-              onPressed: widget.controller.handleSubmit,
+              onPressed: () => controller.handleSubmit(
+                callback: () => Navigator.of(context).pop(),
+              ),
               child: const Text("Add Transaction"),
             )
           ],

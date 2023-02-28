@@ -25,6 +25,16 @@ class Transaction {
     return 'Transaction{id: $id, title: $title, amount: $amount, date: $date}';
   }
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is Transaction &&
+          runtimeType == other.runtimeType &&
+          id == other.id &&
+          title == other.title &&
+          amount == other.amount &&
+          date == other.date;
+
   factory Transaction.fromJson(Map<String, dynamic> json) =>
       _$TransactionFromJson(json);
 

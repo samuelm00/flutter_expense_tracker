@@ -52,7 +52,7 @@ class _AppFragmentState extends ConsumerState<AppFragment> {
         child: const Icon(Icons.add),
         onPressed: () => ref
             .watch(transactionControllerProvider.notifier)
-            .startNewTransaction(context),
+            .startCreateNewTransaction(context),
       ),
     );
   }

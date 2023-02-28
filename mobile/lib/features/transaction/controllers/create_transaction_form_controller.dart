@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_expense_tracker/models/transaction.dart';
 import 'package:flutter_expense_tracker/utils/date_picker/date_picker_controller.dart';
 
 class CreateTransactionFormController {
   CreateTransactionFormController({
-    required Function(String, double, DateTime) onSubmit,
-  }) : _onSubmit = onSubmit;
+    required Function(Transaction) createTransaction,
+  }) : _createTransaction = createTransaction;
 
-  final Function(String, double, DateTime) _onSubmit;
+  final Function(Transaction) _createTransaction;
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   final _datePickerController = DatePickerController();
@@ -32,12 +33,21 @@ class CreateTransactionFormController {
     return true;
   }
 
-  void handleSubmit() {
+  void handleSubmit({Function()? callback}) {
     if (_isInputValid()) {
       final title = _titleController.text;
       final amount = double.parse(_amountController.text);
 
-      _onSubmit(title, amount, _datePickerController.selectedDate!);
+      _createTransaction(
+        Transaction(
+          id: _datePickerController.selectedDate!.toString(),
+          title: title,
+          amount: amount,
+          date: _datePickerController.selectedDate!,
+        ),
+      );
+
+      callback?.call();
 
       _titleController.clear();
       _amountController.clear();
